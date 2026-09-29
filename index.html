@@ -2,22 +2,315 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Something I Made For Disha 👀</title>
-    <meta name="description" content="A secret digital surprise created especially for Disha Verma. Completely unnecessary, but 100% worth it." />
-    <meta property="og:title" content="Something I Made For Disha 👀" />
-    <meta property="og:description" content="A secret digital surprise created especially for Disha Verma. Completely unnecessary, but 100% worth it." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BestFriends - Disha Verma Surprise</title>
+    <meta name="description" content="A fun, friendly, and wholesome surprise website for Disha Verma." />
+    <meta property="og:title" content="BestFriends - Disha Verma Surprise" />
+    <meta property="og:description" content="A fun, friendly, and wholesome surprise website for Disha Verma." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#0f172a" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Pure Relative Path to Stylesheet -->
+    <link rel="stylesheet" href="./style.css" />
   </head>
-  <body class="bg-slate-950 text-slate-100 antialiased selection:bg-amber-400 selection:text-slate-950 overflow-x-hidden min-h-screen">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body>
+    <!-- Ambient Aurora Gradient Blurs -->
+    <div class="aurora-layer" aria-hidden="true">
+      <div class="aurora-blob aurora-1"></div>
+      <div class="aurora-blob aurora-2"></div>
+      <div class="aurora-blob aurora-3"></div>
+    </div>
+
+    <!-- Background Canvas for Interactive Floating Stars & Particles -->
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <!-- Confetti Explosion Canvas -->
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+    <!-- Background Audio Element -->
+    <audio id="bg-music" preload="none" src="./music.mp3"></audio>
+
+    <!-- Header Navigation & Ambient Music Toggle -->
+    <header class="app-header">
+      <div class="brand-tag">
+        <span class="brand-dot"></span>
+        <span>Disha &amp; Harsh · Friendship Edition</span>
+      </div>
+
+      <button id="music-toggle" class="music-toggle" type="button" title="Toggle Chill Background Music">
+        <div class="music-bars" aria-hidden="true">
+          <span class="music-bar"></span>
+          <span class="music-bar"></span>
+          <span class="music-bar"></span>
+        </div>
+        <span id="music-label">Music: Off</span>
+      </button>
+    </header>
+
+    <!-- Bottom Progress Dots -->
+    <nav class="step-tracker" aria-label="Surprise progress">
+      <span class="step-pip active" title="Step 1"></span>
+      <span class="step-pip" title="Step 2"></span>
+      <span class="step-pip" title="Step 3"></span>
+      <span class="step-pip" title="Step 4"></span>
+      <span class="step-pip" title="Step 5"></span>
+    </nav>
+
+    <!-- Main Screens Container -->
+    <main class="main-wrapper">
+      <!-- ========================================== -->
+      <!-- SCREEN 1: Mystery Intro                    -->
+      <!-- ========================================== -->
+      <section id="screen-1" class="screen-view active">
+        <div class="glass-card glow-amber">
+          <div class="badge badge-amber">
+            <span class="pulse-dot"></span>
+            <span>TOP SECRET FILE #DV-2026</span>
+          </div>
+
+          <h1 class="card-title">
+            Hey <span class="gradient-text">Disha Verma</span> 👀
+          </h1>
+
+          <p class="card-body">
+            I built a super confidential, 100% ridiculous, high-security digital file dedicated entirely to our friendship.
+          </p>
+
+          <div class="mystery-hint-box">
+            <span class="hint-icon">🔐</span>
+            <p class="hint-text">
+              <strong>Warning:</strong> Contains excessive roasting, wholesome appreciation, and zero romantic nonsense. Proceed at your own risk.
+            </p>
+          </div>
+
+          <div class="btn-group">
+            <button id="btn-screen1-next" class="btn-primary" type="button">
+              <span>Open Classified File</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SCREEN 2: Dramatic Important Warning       -->
+      <!-- ========================================== -->
+      <section id="screen-2" class="screen-view">
+        <div class="glass-card glow-rose">
+          <div class="badge badge-rose">
+            <span>🚨 FORMAL DISCLAIMER</span>
+          </div>
+
+          <h2 class="card-title">
+            Wait! Read This <span class="gradient-text-rose">Carefully</span>.
+          </h2>
+
+          <div class="warning-checklist">
+            <div class="warning-item">
+              <span class="warning-icon">🙅‍♂️</span>
+              <div class="warning-text">
+                <strong>Zero Romance Zone:</strong>
+                <span>Disha is my friend, not my girlfriend. If you were expecting poetry or violins, please exit through the gift shop.</span>
+              </div>
+            </div>
+
+            <div class="warning-item">
+              <span class="warning-icon">🍕</span>
+              <div class="warning-text">
+                <strong>Treat Obligation:</strong>
+                <span>By continuing past this screen, you legally owe Harsh at least one treat or coffee. No takebacks.</span>
+              </div>
+            </div>
+
+            <div class="warning-item">
+              <span class="warning-icon">😂</span>
+              <div class="warning-text">
+                <strong>Sense of Humor Required:</strong>
+                <span>Severe eye-rolling, chuckling, and laughing at yourself may occur.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button id="btn-screen2-back" class="btn-secondary" type="button">
+              <span>← Go Back</span>
+            </button>
+            <button id="btn-screen2-next" class="btn-primary" type="button">
+              <span>I Agree (Show Me!)</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SCREEN 3: Friendship Classified Cards      -->
+      <!-- ========================================== -->
+      <section id="screen-3" class="screen-view">
+        <div class="glass-card">
+          <div class="badge badge-cyan">
+            <span>🗂️ EXHIBIT A, B, C &amp; D</span>
+          </div>
+
+          <h2 class="card-title">
+            The <span class="gradient-text-cyan">Disha Verma</span> Dossier
+          </h2>
+          <p class="card-body">
+            Tap each classified folder to unlock verified intelligence reports about your personality.
+          </p>
+
+          <div class="grid-cards">
+            <div class="flip-card" tabindex="0">
+              <div class="flip-front">
+                <span class="card-emoji">👑</span>
+                <h3>Drama Level</h3>
+                <span class="tap-hint">Tap to decrypt</span>
+              </div>
+              <div class="flip-back">
+                <h4>Oscar Worthy</h4>
+                <p>Can turn running 2 minutes late into a Netflix psychological thriller series.</p>
+              </div>
+            </div>
+
+            <div class="flip-card" tabindex="0">
+              <div class="flip-front">
+                <span class="card-emoji">📱</span>
+                <h3>Reply Speed</h3>
+                <span class="tap-hint">Tap to decrypt</span>
+              </div>
+              <div class="flip-back">
+                <h4>0.002s or 3 Business Days</h4>
+                <p>Either replies before I finish typing, or enters spiritual hibernation for 72 hours. No in-between.</p>
+              </div>
+            </div>
+
+            <div class="flip-card" tabindex="0">
+              <div class="flip-front">
+                <span class="card-emoji">🧠</span>
+                <h3>Overthinking</h3>
+                <span class="tap-hint">Tap to decrypt</span>
+              </div>
+              <div class="flip-back">
+                <h4>NASA Certified</h4>
+                <p>Capable of analyzing why someone used a period instead of an exclamation mark in a text message.</p>
+              </div>
+            </div>
+
+            <div class="flip-card" tabindex="0">
+              <div class="flip-front">
+                <span class="card-emoji">⭐</span>
+                <h3>Friendship Score</h3>
+                <span class="tap-hint">Tap to decrypt</span>
+              </div>
+              <div class="flip-back">
+                <h4>100 / 10 Genuine</h4>
+                <p>Always stands up for her people, gives elite reality checks, and stays real through thick and thin.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button id="btn-screen3-back" class="btn-secondary" type="button">
+              <span>← Back</span>
+            </button>
+            <button id="btn-screen3-next" class="btn-primary" type="button">
+              <span>Take Disha Quiz</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SCREEN 4: Friendship Quiz                  -->
+      <!-- ========================================== -->
+      <section id="screen-4" class="screen-view">
+        <div class="glass-card">
+          <div class="badge badge-amber">
+            <span id="quiz-progress-text">QUESTION 1 OF 3</span>
+          </div>
+
+          <div id="quiz-container">
+            <h2 id="quiz-question" class="card-title quiz-title">Loading Question...</h2>
+            <div id="quiz-options" class="quiz-options-list"></div>
+            <div id="quiz-feedback" class="quiz-feedback-box hidden"></div>
+          </div>
+
+          <div class="btn-group">
+            <button id="btn-screen4-back" class="btn-secondary" type="button">
+              <span>← Back</span>
+            </button>
+            <button id="btn-screen4-next" class="btn-primary hidden" type="button">
+              <span>Next Question</span>
+              <span class="btn-icon">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SCREEN 5: Grand Reveal & Heartfelt Note    -->
+      <!-- ========================================== -->
+      <section id="screen-5" class="screen-view">
+        <div class="glass-card glow-gold">
+          <!-- Mystery Gift Box Container -->
+          <div id="gift-box-wrapper" class="gift-box-wrapper">
+            <div class="badge badge-amber">
+              <span>🎁 GRAND SURPRISE</span>
+            </div>
+            <h2 class="card-title">You Made It To The End!</h2>
+            <p class="card-body">Tap the mystery box below to break the seal and unlock the final message.</p>
+
+            <button id="gift-box-button" class="gift-box-trigger" type="button" aria-label="Open Mystery Gift">
+              <span class="gift-emoji">🎁</span>
+              <span class="gift-tap-badge">TAP TO UNWRAP</span>
+            </button>
+          </div>
+
+          <!-- Secret Letter Container (Revealed upon gift tap) -->
+          <article id="secret-letter-wrapper" class="secret-letter-wrapper hidden">
+            <div class="badge badge-emerald">
+              <span>✨ CERTIFIED BEST FRIEND FOR LIFE</span>
+            </div>
+
+            <h2 class="card-title letter-heading">
+              Dear <span class="gradient-text">Disha Verma</span>,
+            </h2>
+
+            <div class="letter-content">
+              <p>
+                Jokes and roasts aside, I just wanted to make this little surprise website to remind you how much your friendship genuinely means to me.
+              </p>
+              <p>
+                In a world full of fake vibes and drama, you are one of the most real, dependable, and hilarious friends anyone could ever ask for. Thank you for the laughs, the random gossip sessions, the reality checks, and for never being boring.
+              </p>
+              <p>
+                Never change your crazy, wonderful, dramatic self. Always rooting for you in everything you do! 🚀⭐
+              </p>
+            </div>
+
+            <div class="signature-box">
+              <span class="sig-title">Your Best Friend,</span>
+              <span class="sig-name">Harsh Verma</span>
+            </div>
+
+            <div class="accomplished-banner">
+              <p class="accomplished-title">MISSION ACCOMPLISHED! 🎉</p>
+              <p class="accomplished-sub">Now you can't say I never did anything for you. 😂</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 24px;">
+              <button id="btn-replay" class="btn-secondary" type="button">
+                <span>Replay Surprise</span>
+                <span>🔄</span>
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- Relative Path to JavaScript Module -->
+    <script type="module" src="./script.js"></script>
   </body>
 </html>
-
