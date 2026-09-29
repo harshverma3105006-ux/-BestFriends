@@ -1,316 +1,1038 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BestFriends - Disha Verma Surprise</title>
-    <meta name="description" content="A fun, friendly, and wholesome surprise website for Disha Verma." />
-    <meta property="og:title" content="BestFriends - Disha Verma Surprise" />
-    <meta property="og:description" content="A fun, friendly, and wholesome surprise website for Disha Verma." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Something I Made For Disha 👀</title>
+  <meta name="description" content="A secret digital surprise created especially for Disha Verma. Completely unnecessary, but 100% worth it.">
+  <meta property="og:title" content="Something I Made For Disha 👀">
+  <meta property="og:description" content="A secret digital surprise created especially for Disha Verma. 100% friendship edition.">
+  <meta name="theme-color" content="#070b14">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎁</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #070b14;
+      --card-bg: rgba(15, 23, 42, 0.78);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --accent-gold: #fbbf24;
+      --accent-amber: #f59e0b;
+      --accent-indigo: #818cf8;
+      --accent-rose: #f43f5e;
+      --accent-cyan: #06b6d4;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    #star-canvas, #confetti-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+    }
+    #star-canvas { z-index: 1; }
+    #confetti-canvas { z-index: 999; }
+    
+    .glow-blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.35;
+    }
+    .blob-1 { top: -10%; left: -10%; width: 350px; height: 350px; background: #6366f1; }
+    .blob-2 { bottom: -10%; right: -10%; width: 400px; height: 400px; background: #d97706; }
 
-    <!-- Pure Relative Path to Stylesheet -->
-    <link rel="stylesheet" href="./style.css" />
-  </head>
-  <body>
-    <!-- Ambient Aurora Gradient Blurs -->
-    <div class="aurora-layer" aria-hidden="true">
-      <div class="aurora-blob aurora-1"></div>
-      <div class="aurora-blob aurora-2"></div>
-      <div class="aurora-blob aurora-3"></div>
+    .header-bar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      max-width: 680px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+      background: rgba(7, 11, 20, 0.6);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .brand-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dot-live {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
+
+    .btn-music {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+    }
+    .btn-music:hover { background: rgba(255, 255, 255, 0.15); }
+    .btn-music.active { border-color: var(--accent-gold); color: var(--accent-gold); box-shadow: 0 0 15px rgba(251, 191, 36, 0.25); }
+
+    .step-dots {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      z-index: 5;
+    }
+    .step-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: all 0.3s;
+    }
+    .step-dot.active {
+      background: var(--accent-gold);
+      box-shadow: 0 0 10px var(--accent-gold);
+      transform: scale(1.25);
+    }
+
+    .main-container {
+      width: 100%;
+      max-width: 620px;
+      padding: 24px 20px 80px;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .screen {
+      display: none;
+      width: 100%;
+      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .screen.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 36px 28px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--card-border);
+      text-align: center;
+      position: relative;
+    }
+    @media (max-width: 480px) {
+      .glass-card { padding: 28px 18px; }
+    }
+
+    .tag-badge {
+      display: inline-block;
+      padding: 5px 14px;
+      background: rgba(251, 191, 36, 0.12);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-gold);
+      margin-bottom: 18px;
+    }
+    .tag-badge.rose {
+      background: rgba(244, 63, 94, 0.12);
+      border-color: rgba(244, 63, 94, 0.3);
+      color: var(--accent-rose);
+    }
+    .tag-badge.cyan {
+      background: rgba(6, 182, 212, 0.12);
+      border-color: rgba(6, 182, 212, 0.3);
+      color: var(--accent-cyan);
+    }
+
+    h1, h2 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    h1 { font-size: 2.3rem; }
+    h2 { font-size: 1.85rem; }
+    @media (max-width: 480px) {
+      h1 { font-size: 1.95rem; }
+      h2 { font-size: 1.6rem; }
+    }
+    .gold-text {
+      background: linear-gradient(135deg, #fef08a 0%, #fbbf24 60%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .btn-main {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 28px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #070b14;
+      background: linear-gradient(135deg, #fde047 0%, #fbbf24 50%, #f59e0b 100%);
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 10px 25px -5px rgba(251, 191, 36, 0.5);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px -5px rgba(251, 191, 36, 0.65);
+    }
+    .btn-main:active { transform: translateY(0); }
+
+    .btn-sec {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      font-weight: 600;
+      padding: 14px 22px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .btn-sec:hover { background: rgba(255, 255, 255, 0.14); }
+
+    /* Notice Cards */
+    .notice-card {
+      text-align: left;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .notice-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .notice-text strong { display: block; font-size: 0.95rem; color: #fff; margin-bottom: 2px; }
+    .notice-text span { font-size: 0.88rem; color: var(--text-muted); line-height: 1.4; }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 480px) {
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+    .f-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px 16px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.3s;
+      position: relative;
+      user-select: none;
+    }
+    .f-card:hover {
+      border-color: rgba(251, 191, 36, 0.4);
+      background: rgba(255, 255, 255, 0.07);
+      transform: translateY(-2px);
+    }
+    .f-card.revealed {
+      border-color: var(--accent-gold);
+      background: rgba(251, 191, 36, 0.08);
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.15);
+    }
+    .f-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .f-card-icon { font-size: 1.5rem; }
+    .f-card-badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+    .f-card.revealed .f-card-badge {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+    }
+    .f-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+    .f-card p { font-size: 0.86rem; color: var(--text-muted); line-height: 1.45; }
+    .counter-pill {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-gold);
+      margin-bottom: 18px;
+    }
+
+    /* Quiz */
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .quiz-btn {
+      width: 100%;
+      text-align: left;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .quiz-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--accent-gold);
+    }
+    .quiz-btn.selected {
+      background: rgba(251, 191, 36, 0.15);
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+    .quiz-reaction-box {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #34d399;
+      min-height: 24px;
+      margin-top: 10px;
+    }
+    .conclusion-box {
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px dashed var(--accent-gold);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .conclusion-title { font-size: 1.25rem; font-weight: 800; color: var(--accent-gold); margin-bottom: 6px; }
+
+    /* Gift Box & Letter */
+    .gift-box-anim {
+      width: 130px;
+      height: 130px;
+      margin: 20px auto 30px;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      animation: floatGift 2.4s ease-in-out infinite;
+      user-select: none;
+      transition: transform 0.2s;
+    }
+    .gift-box-anim:hover { transform: scale(1.1); }
+    .gift-box-anim:active { transform: scale(0.95); }
+    @keyframes floatGift {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .gift-tap-hint {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 6px 14px;
+      background: #fbbf24;
+      color: #070b14;
+      border-radius: 999px;
+      box-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+      margin-bottom: 24px;
+    }
+
+    .letter-paper {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(251, 191, 36, 0.35);
+      border-radius: 20px;
+      padding: 28px 24px;
+      text-align: left;
+      margin-bottom: 24px;
+      box-shadow: 0 0 30px rgba(251, 191, 36, 0.15);
+    }
+    .letter-paper h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 14px;
+      color: var(--accent-gold);
+    }
+    .letter-paper p {
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: #cbd5e1;
+      margin-bottom: 12px;
+    }
+    .letter-sig {
+      text-align: right;
+      margin-top: 18px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .reaction-bar {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .reaction-btns {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .btn-react {
+      flex: 1;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-react:hover { background: rgba(255, 255, 255, 0.14); }
+    .btn-react.selected {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #10b981;
+      color: #34d399;
+    }
+
+    .mission-accomplished {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid #10b981;
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 18px;
+      display: none;
+    }
+    .mission-accomplished h4 { color: #34d399; font-size: 1.1rem; margin-bottom: 4px; }
+    .mission-accomplished p { font-size: 0.88rem; color: #a7f3d0; }
+
+    .action-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 24px;
+      width: 100%;
+    }
+    .btn-whatsapp {
+      background: #25d366;
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 14px;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
+      transition: transform 0.2s;
+    }
+    .btn-whatsapp:hover { transform: translateY(-2px); }
+
+    footer {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="star-canvas"></canvas>
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="glow-blob blob-1"></div>
+  <div class="glow-blob blob-2"></div>
+
+  <header class="header-bar">
+    <div class="brand-badge">
+      <span class="dot-live"></span>
+      <span>Disha &amp; Harsh</span>
     </div>
+    <button id="music-btn" class="btn-music" type="button">
+      <span id="music-icon">🔇</span>
+      <span id="music-text">Music: Off</span>
+    </button>
+  </header>
 
-    <!-- Background Canvas for Interactive Floating Stars & Particles -->
-    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <nav class="step-dots" aria-label="Progress">
+    <span class="step-dot active" id="dot-1"></span>
+    <span class="step-dot" id="dot-2"></span>
+    <span class="step-dot" id="dot-3"></span>
+    <span class="step-dot" id="dot-4"></span>
+    <span class="step-dot" id="dot-5"></span>
+  </nav>
 
-    <!-- Confetti Explosion Canvas -->
-    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
-
-    <!-- Background Audio Element -->
-    <audio id="bg-music" preload="none" src="./music.mp3"></audio>
-
-    <!-- Header Navigation & Ambient Music Toggle -->
-    <header class="app-header">
-      <div class="brand-tag">
-        <span class="brand-dot"></span>
-        <span>Disha &amp; Harsh · Friendship Edition</span>
+  <main class="main-container">
+    <!-- SCREEN 1: INTRO -->
+    <section id="screen-1" class="screen active">
+      <div class="glass-card">
+        <span class="tag-badge">✨ Classified Delivery</span>
+        <h1>Hey <span class="gold-text">Disha Verma</span> 👀</h1>
+        <p class="subtitle">
+          I built a 100% ridiculous, completely unnecessary digital surprise dedicated entirely to our friendship.
+        </p>
+        <button id="btn-screen1" class="btn-main" type="button">
+          <span>Open The Surprise ✨</span>
+          <span>→</span>
+        </button>
+        <footer>Strictly friendship • 100% genuine laughs</footer>
       </div>
+    </section>
 
-      <button id="music-toggle" class="music-toggle" type="button" title="Toggle Chill Background Music">
-        <div class="music-bars" aria-hidden="true">
-          <span class="music-bar"></span>
-          <span class="music-bar"></span>
-          <span class="music-bar"></span>
+    <!-- SCREEN 2: FORMAL WARNING -->
+    <section id="screen-2" class="screen">
+      <div class="glass-card">
+        <span class="tag-badge rose">⚠️ MANDATORY DISCLAIMER</span>
+        <h2>Wait! Read <span class="gold-text">Carefully</span>.</h2>
+        <p class="subtitle">Terms &amp; conditions of being Disha's friend:</p>
+
+        <div class="notice-card">
+          <div class="notice-icon">🙅‍♂️</div>
+          <div class="notice-text">
+            <strong>Zero Romance Zone</strong>
+            <span>Disha is my friend, not my girlfriend. If you were expecting romantic poetry, exit immediately! 😂</span>
+          </div>
         </div>
-        <span id="music-label">Music: Off</span>
-      </button>
-    </header>
 
-    <!-- Bottom Progress Dots -->
-    <nav class="step-tracker" aria-label="Surprise progress">
-      <span class="step-pip active" title="Step 1"></span>
-      <span class="step-pip" title="Step 2"></span>
-      <span class="step-pip" title="Step 3"></span>
-      <span class="step-pip" title="Step 4"></span>
-      <span class="step-pip" title="Step 5"></span>
-    </nav>
+        <div class="notice-card">
+          <div class="notice-icon">🍕</div>
+          <div class="notice-text">
+            <strong>Treat Obligation</strong>
+            <span>By proceeding past this screen, you legally owe Harsh at least one treat or coffee. No takebacks!</span>
+          </div>
+        </div>
 
-    <!-- Main Screens Container -->
-    <main class="main-wrapper">
-      <!-- ========================================== -->
-      <!-- SCREEN 1: Mystery Intro                    -->
-      <!-- ========================================== -->
-      <section id="screen-1" class="screen-view active">
-        <div class="glass-card glow-amber">
-          <div class="badge badge-amber">
-            <span class="pulse-dot"></span>
-            <span>TOP SECRET FILE #DV-2026</span>
+        <div class="notice-card">
+          <div class="notice-icon">😂</div>
+          <div class="notice-text">
+            <strong>Humor Required</strong>
+            <span>Eye-rolling, chuckling, and laughing at yourself are 100% guaranteed.</span>
+          </div>
+        </div>
+
+        <button id="btn-screen2" class="btn-main" style="margin-top: 14px;" type="button">
+          <span>I Agree (Continue) →</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 3: 4 FLIP CARDS -->
+    <section id="screen-3" class="screen">
+      <div class="glass-card">
+        <span class="tag-badge cyan">🗂️ THE DOSSIER</span>
+        <h2>A Few Facts About Us 😂</h2>
+        <p class="subtitle">Tap each classified card to decrypt verified intel:</p>
+        
+        <p class="counter-pill" id="cards-counter">Cards Unlocked: 0 / 4</p>
+
+        <div class="cards-grid">
+          <div class="f-card" data-id="1">
+            <div class="f-card-top">
+              <span class="f-card-icon">💬</span>
+              <span class="f-card-badge">Tap to read</span>
+            </div>
+            <h3>Random Talks 😂</h3>
+            <p>Some conversations make zero sense... and somehow those are always the funniest ones.</p>
           </div>
 
-          <h1 class="card-title">
-            Hey <span class="gradient-text">Disha Verma</span> 👀
-          </h1>
+          <div class="f-card" data-id="2">
+            <div class="f-card-top">
+              <span class="f-card-icon">✨</span>
+              <span class="f-card-badge">Tap to read</span>
+            </div>
+            <h3>Good Energy ✨</h3>
+            <p>Some people just make normal days a little more fun. You're definitely one of them.</p>
+          </div>
 
-          <p class="card-body">
-            I built a super confidential, 100% ridiculous, high-security digital file dedicated entirely to our friendship.
-          </p>
+          <div class="f-card" data-id="3">
+            <div class="f-card-top">
+              <span class="f-card-icon">⚡</span>
+              <span class="f-card-badge">Tap to read</span>
+            </div>
+            <h3>Certified Chaos 😂</h3>
+            <p>Every friendship needs at least one person responsible for unnecessary drama and chaos.</p>
+          </div>
 
-          <div class="mystery-hint-box">
-            <span class="hint-icon">🔐</span>
-            <p class="hint-text">
-              <strong>Warning:</strong> Contains excessive roasting, wholesome appreciation, and zero romantic nonsense. Proceed at your own risk.
+          <div class="f-card" data-id="4">
+            <div class="f-card-top">
+              <span class="f-card-icon">🏆</span>
+              <span class="f-card-badge">Tap to read</span>
+            </div>
+            <h3>Friendship Score 🏆</h3>
+            <p>100/10 - Always real, dependable, and stands up for her people through thick and thin.</p>
+          </div>
+        </div>
+
+        <button id="btn-screen3" class="btn-main" type="button">
+          <span>Take Disha's Quiz 🚀</span>
+          <span>→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: FRIENDSHIP QUIZ -->
+    <section id="screen-4" class="screen">
+      <div class="glass-card">
+        <span class="tag-badge">🧠 KNOWLEDGE TEST</span>
+        <div id="quiz-box">
+          <p class="counter-pill" id="quiz-step">Question 1 of 3</p>
+          <h2 id="quiz-question">Loading question...</h2>
+          <div class="quiz-options" id="quiz-options"></div>
+          <div class="quiz-reaction-box" id="quiz-reaction"></div>
+        </div>
+
+        <div id="quiz-conclusion" style="display: none;">
+          <div class="conclusion-box">
+            <div style="font-size: 2.5rem; margin-bottom: 8px;">🏆</div>
+            <h3 class="conclusion-title">Evaluation Complete!</h3>
+            <p style="color: #fef08a; font-size: 1.1rem; font-weight: 700;">
+              "You are officially a certified 10/10 awesome friend."
+            </p>
+            <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 6px;">
+              Peer-reviewed by independent chaos analysts. Accuracy: 100%.
             </p>
           </div>
+          <button id="btn-screen4" class="btn-main" type="button">
+            <span>One Last Thing... 🎁</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+    </section>
 
-          <div class="btn-group">
-            <button id="btn-screen1-next" class="btn-primary" type="button">
-              <span>Open Classified File</span>
-              <span class="btn-icon">→</span>
+    <!-- SCREEN 5: GIFT BOX & LETTER -->
+    <section id="screen-5" class="screen">
+      <div class="glass-card">
+        <div id="gift-stage">
+          <span class="tag-badge">🎁 GRAND REVEAL</span>
+          <h2>Okay Disha...</h2>
+          <p class="subtitle">There is actually one more secret thing for you.</p>
+
+          <div id="gift-box-click" class="gift-box-anim" title="Tap to open!">
+            <span>🎁</span>
+          </div>
+          <div>
+            <span class="gift-tap-hint">TAP THE GIFT TO OPEN</span>
+          </div>
+
+          <button id="btn-open-gift" class="btn-main" type="button">
+            <span>Unwrap Surprise 🎁</span>
+          </button>
+        </div>
+
+        <div id="letter-stage" style="display: none;">
+          <span class="tag-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: #10b981;">
+            ✨ OFFICIAL CERTIFICATE
+          </span>
+
+          <div class="letter-paper">
+            <h3>Dear Disha Verma 🌸</h3>
+            <p>
+              Jokes and roasts aside, I just wanted to make this little surprise website to remind you how much your friendship genuinely means to me.
+            </p>
+            <p>
+              In a world full of drama and fake vibes, you are one of the most real, hilarious, and dependable friends anyone could ever ask for. Thank you for the laughs, the random gossip sessions, the reality checks, and for never being boring.
+            </p>
+            <p>
+              Stay happy, stay crazy, and keep being the wonderful person you are! 🚀⭐
+            </p>
+            <div class="letter-sig">
+              — Harsh Verma 🤝
+            </div>
+          </div>
+
+          <div class="reaction-bar">
+            <p style="font-size: 0.92rem; color: var(--text-muted); font-weight: 600;">Your Honest Reaction:</p>
+            <div class="reaction-btns">
+              <button class="btn-react" data-text="cute" type="button">😊 Actually cute 😂</button>
+              <button class="btn-react" data-text="why" type="button">😭 Why make this? 😭</button>
+            </div>
+            
+            <div id="mission-box" class="mission-accomplished">
+              <h4>MISSION ACCOMPLISHED! 🎉</h4>
+              <p>Now you can't say I never did anything for you. 😂</p>
+            </div>
+          </div>
+
+          <div class="action-links">
+            <button id="btn-wa" class="btn-whatsapp" type="button">
+              <span>Share on WhatsApp 💬</span>
+            </button>
+            <button id="btn-replay" class="btn-sec" type="button">
+              <span>Replay Surprise 🔄</span>
             </button>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+  </main>
 
-      <!-- ========================================== -->
-      <!-- SCREEN 2: Dramatic Important Warning       -->
-      <!-- ========================================== -->
-      <section id="screen-2" class="screen-view">
-        <div class="glass-card glow-rose">
-          <div class="badge badge-rose">
-            <span>🚨 FORMAL DISCLAIMER</span>
-          </div>
+  <script>
+    const totalScreens = 5;
+    let currentScreen = 1;
+    let unlockedCards = new Set();
+    let currentQuiz = 0;
+    let musicPlaying = false;
+    let audioCtx = null;
+    let synthTimer = null;
 
-          <h2 class="card-title">
-            Wait! Read This <span class="gradient-text-rose">Carefully</span>.
-          </h2>
+    const quizData = [
+      {
+        q: "Who is more likely to reply after disappearing for 3 business days? 😂",
+        opts: [
+          { t: "Harsh", r: "Honesty 100 💀" },
+          { t: "Disha", r: "Accurate observation detected 😂" },
+          { t: "Both of us 😭", r: "Double ghosting world record!" }
+        ]
+      },
+      {
+        q: "Who is more likely to start a completely random conversation?",
+        opts: [
+          { t: "Harsh", r: "Standard chaos protocol initiated 😂" },
+          { t: "Disha", r: "Zero context, 100% entertainment ✨" },
+          { t: "Depends on the day", r: "The truest answer ever! 🤝" }
+        ]
+      },
+      {
+        q: "Who causes more unnecessary drama & chaos?",
+        opts: [
+          { t: "Harsh", r: "Taking one for the team 🤝" },
+          { t: "Disha", r: "The jury has spoken 🚨😂" },
+          { t: "Case Closed 🗄️", r: "Files classified under top secret! 🔒" }
+        ]
+      }
+    ];
 
-          <div class="warning-checklist">
-            <div class="warning-item">
-              <span class="warning-icon">🙅‍♂️</span>
-              <div class="warning-text">
-                <strong>Zero Romance Zone:</strong>
-                <span>Disha is my friend, not my girlfriend. If you were expecting poetry or violins, please exit through the gift shop.</span>
-              </div>
-            </div>
+    function showScreen(idx) {
+      currentScreen = idx;
+      for (let i = 1; i <= totalScreens; i++) {
+        const s = document.getElementById('screen-' + i);
+        const d = document.getElementById('dot-' + i);
+        if (s) s.classList.toggle('active', i === idx);
+        if (d) d.classList.toggle('active', i === idx);
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-            <div class="warning-item">
-              <span class="warning-icon">🍕</span>
-              <div class="warning-text">
-                <strong>Treat Obligation:</strong>
-                <span>By continuing past this screen, you legally owe Harsh at least one treat or coffee. No takebacks.</span>
-              </div>
-            </div>
+    document.getElementById('btn-screen1')?.addEventListener('click', () => showScreen(2));
+    document.getElementById('btn-screen2')?.addEventListener('click', () => showScreen(3));
+    document.getElementById('btn-screen3')?.addEventListener('click', () => {
+      showScreen(4);
+      loadQuiz(0);
+    });
+    document.getElementById('btn-screen4')?.addEventListener('click', () => showScreen(5));
 
-            <div class="warning-item">
-              <span class="warning-icon">😂</span>
-              <div class="warning-text">
-                <strong>Sense of Humor Required:</strong>
-                <span>Severe eye-rolling, chuckling, and laughing at yourself may occur.</span>
-              </div>
-            </div>
-          </div>
+    document.querySelectorAll('.f-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const id = card.getAttribute('data-id');
+        card.classList.toggle('revealed');
+        const badge = card.querySelector('.f-card-badge');
+        if (card.classList.contains('revealed')) {
+          unlockedCards.add(id);
+          if (badge) badge.textContent = '✓ Read';
+          playChime(600);
+        } else {
+          unlockedCards.delete(id);
+          if (badge) badge.textContent = 'Tap to read';
+        }
+        const counter = document.getElementById('cards-counter');
+        if (counter) counter.textContent = `Cards Unlocked: ${unlockedCards.size} / 4`;
+      });
+    });
 
-          <div class="btn-group">
-            <button id="btn-screen2-back" class="btn-secondary" type="button">
-              <span>← Go Back</span>
-            </button>
-            <button id="btn-screen2-next" class="btn-primary" type="button">
-              <span>I Agree (Show Me!)</span>
-              <span class="btn-icon">→</span>
-            </button>
-          </div>
-        </div>
-      </section>
+    function loadQuiz(idx) {
+      currentQuiz = idx;
+      const data = quizData[idx];
+      const qEl = document.getElementById('quiz-question');
+      const stepEl = document.getElementById('quiz-step');
+      const optEl = document.getElementById('quiz-options');
+      const reactEl = document.getElementById('quiz-reaction');
 
-      <!-- ========================================== -->
-      <!-- SCREEN 3: Friendship Classified Cards      -->
-      <!-- ========================================== -->
-      <section id="screen-3" class="screen-view">
-        <div class="glass-card">
-          <div class="badge badge-cyan">
-            <span>🗂️ EXHIBIT A, B, C &amp; D</span>
-          </div>
+      if (qEl) qEl.textContent = data.q;
+      if (stepEl) stepEl.textContent = `Question ${idx + 1} of ${quizData.length}`;
+      if (reactEl) reactEl.textContent = '';
+      if (optEl) {
+        optEl.innerHTML = '';
+        data.opts.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'quiz-btn';
+          btn.textContent = opt.t;
+          btn.onclick = () => {
+            document.querySelectorAll('.quiz-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            if (reactEl) reactEl.textContent = `✨ ${opt.r}`;
+            playChime(750);
+            setTimeout(() => {
+              if (idx < quizData.length - 1) {
+                loadQuiz(idx + 1);
+              } else {
+                document.getElementById('quiz-box').style.display = 'none';
+                document.getElementById('quiz-conclusion').style.display = 'block';
+                fireConfetti();
+              }
+            }, 900);
+          };
+          optEl.appendChild(btn);
+        });
+      }
+    }
 
-          <h2 class="card-title">
-            The <span class="gradient-text-cyan">Disha Verma</span> Dossier
-          </h2>
-          <p class="card-body">
-            Tap each classified folder to unlock verified intelligence reports about your personality.
-          </p>
+    function triggerOpenGift() {
+      document.getElementById('gift-stage').style.display = 'none';
+      document.getElementById('letter-stage').style.display = 'block';
+      fireConfetti();
+      playChime(520);
+      setTimeout(() => playChime(780), 180);
+    }
+    document.getElementById('gift-box-click')?.addEventListener('click', triggerOpenGift);
+    document.getElementById('btn-open-gift')?.addEventListener('click', triggerOpenGift);
 
-          <div class="grid-cards">
-            <div class="flip-card" tabindex="0">
-              <div class="flip-front">
-                <span class="card-emoji">👑</span>
-                <h3>Drama Level</h3>
-                <span class="tap-hint">Tap to decrypt</span>
-              </div>
-              <div class="flip-back">
-                <h4>Oscar Worthy</h4>
-                <p>Can turn running 2 minutes late into a Netflix psychological thriller series.</p>
-              </div>
-            </div>
+    document.querySelectorAll('.btn-react').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.btn-react').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        document.getElementById('mission-box').style.display = 'block';
+        fireConfetti();
+      });
+    });
 
-            <div class="flip-card" tabindex="0">
-              <div class="flip-front">
-                <span class="card-emoji">📱</span>
-                <h3>Reply Speed</h3>
-                <span class="tap-hint">Tap to decrypt</span>
-              </div>
-              <div class="flip-back">
-                <h4>0.002s or 3 Business Days</h4>
-                <p>Either replies before I finish typing, or enters spiritual hibernation for 72 hours. No in-between.</p>
-              </div>
-            </div>
+    document.getElementById('btn-replay')?.addEventListener('click', () => {
+      document.getElementById('gift-stage').style.display = 'block';
+      document.getElementById('letter-stage').style.display = 'none';
+      document.getElementById('mission-box').style.display = 'none';
+      document.getElementById('quiz-box').style.display = 'block';
+      document.getElementById('quiz-conclusion').style.display = 'none';
+      showScreen(1);
+    });
 
-            <div class="flip-card" tabindex="0">
-              <div class="flip-front">
-                <span class="card-emoji">🧠</span>
-                <h3>Overthinking</h3>
-                <span class="tap-hint">Tap to decrypt</span>
-              </div>
-              <div class="flip-back">
-                <h4>NASA Certified</h4>
-                <p>Capable of analyzing why someone used a period instead of an exclamation mark in a text message.</p>
-              </div>
-            </div>
+    document.getElementById('btn-wa')?.addEventListener('click', () => {
+      const msg = encodeURIComponent("Hey Disha! 👀 Look at this surprise website Harsh made for you:\n" + window.location.href);
+      const url = `https://api.whatsapp.com/send?text=${msg}`;
+      const a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
 
-            <div class="flip-card" tabindex="0">
-              <div class="flip-front">
-                <span class="card-emoji">⭐</span>
-                <h3>Friendship Score</h3>
-                <span class="tap-hint">Tap to decrypt</span>
-              </div>
-              <div class="flip-back">
-                <h4>100 / 10 Genuine</h4>
-                <p>Always stands up for her people, gives elite reality checks, and stays real through thick and thin.</p>
-              </div>
-            </div>
-          </div>
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
 
-          <div class="btn-group">
-            <button id="btn-screen3-back" class="btn-secondary" type="button">
-              <span>← Back</span>
-            </button>
-            <button id="btn-screen3-next" class="btn-primary" type="button">
-              <span>Take Disha Quiz</span>
-              <span class="btn-icon">→</span>
-            </button>
-          </div>
-        </div>
-      </section>
+    function playChime(freq = 600) {
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.5, ctx.currentTime + 0.25);
+        gain.gain.setValueAtTime(0.12, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.35);
+      } catch (e) {}
+    }
 
-      <!-- ========================================== -->
-      <!-- SCREEN 4: Friendship Quiz                  -->
-      <!-- ========================================== -->
-      <section id="screen-4" class="screen-view">
-        <div class="glass-card">
-          <div class="badge badge-amber">
-            <span id="quiz-progress-text">QUESTION 1 OF 3</span>
-          </div>
+    function toggleMusic() {
+      musicPlaying = !musicPlaying;
+      const btn = document.getElementById('music-btn');
+      const icon = document.getElementById('music-icon');
+      const txt = document.getElementById('music-text');
 
-          <div id="quiz-container">
-            <h2 id="quiz-question" class="card-title quiz-title">Loading Question...</h2>
-            <div id="quiz-options" class="quiz-options-list"></div>
-            <div id="quiz-feedback" class="quiz-feedback-box hidden"></div>
-          </div>
+      if (musicPlaying) {
+        if (btn) btn.classList.add('active');
+        if (icon) icon.textContent = '🔊';
+        if (txt) txt.textContent = 'Music: On';
+        startSynthMelody();
+      } else {
+        if (btn) btn.classList.remove('active');
+        if (icon) icon.textContent = '🔇';
+        if (txt) txt.textContent = 'Music: Off';
+        if (synthTimer) clearInterval(synthTimer);
+      }
+    }
+    document.getElementById('music-btn')?.addEventListener('click', toggleMusic);
 
-          <div class="btn-group">
-            <button id="btn-screen4-back" class="btn-secondary" type="button">
-              <span>← Back</span>
-            </button>
-            <button id="btn-screen4-next" class="btn-primary hidden" type="button">
-              <span>Next Question</span>
-              <span class="btn-icon">→</span>
-            </button>
-          </div>
-        </div>
-      </section>
+    function startSynthMelody() {
+      if (synthTimer) clearInterval(synthTimer);
+      const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00];
+      let step = 0;
+      synthTimer = setInterval(() => {
+        if (!musicPlaying) return;
+        try {
+          const ctx = getAudioContext();
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(notes[step % notes.length], ctx.currentTime);
+          gain.gain.setValueAtTime(0.06, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.5);
+          step++;
+        } catch (e) {}
+      }, 550);
+    }
 
-      <!-- ========================================== -->
-      <!-- SCREEN 5: Grand Reveal & Heartfelt Note    -->
-      <!-- ========================================== -->
-      <section id="screen-5" class="screen-view">
-        <div class="glass-card glow-gold">
-          <!-- Mystery Gift Box Container -->
-          <div id="gift-box-wrapper" class="gift-box-wrapper">
-            <div class="badge badge-amber">
-              <span>🎁 GRAND SURPRISE</span>
-            </div>
-            <h2 class="card-title">You Made It To The End!</h2>
-            <p class="card-body">Tap the mystery box below to break the seal and unlock the final message.</p>
+    const starCanvas = document.getElementById('star-canvas');
+    if (starCanvas && starCanvas.getContext) {
+      const ctx = starCanvas.getContext('2d');
+      let w = (starCanvas.width = window.innerWidth);
+      let h = (starCanvas.height = window.innerHeight);
 
-            <button id="gift-box-button" class="gift-box-trigger" type="button" aria-label="Open Mystery Gift">
-              <span class="gift-emoji">🎁</span>
-              <span class="gift-tap-badge">TAP TO UNWRAP</span>
-            </button>
-          </div>
+      window.addEventListener('resize', () => {
+        w = starCanvas.width = window.innerWidth;
+        h = starCanvas.height = window.innerHeight;
+      });
 
-          <!-- Secret Letter Container (Revealed upon gift tap) -->
-          <article id="secret-letter-wrapper" class="secret-letter-wrapper hidden">
-            <div class="badge badge-emerald">
-              <span>✨ CERTIFIED BEST FRIEND FOR LIFE</span>
-            </div>
+      const stars = Array.from({ length: 75 }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.8 + 0.5,
+        alpha: Math.random() * 0.7 + 0.3,
+        speed: Math.random() * 0.3 + 0.1
+      }));
 
-            <h2 class="card-title letter-heading">
-              Dear <span class="gradient-text">Disha Verma</span>,
-            </h2>
+      function renderStars() {
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = '#ffffff';
+        stars.forEach(s => {
+          s.y -= s.speed;
+          if (s.y < 0) s.y = h;
+          ctx.globalAlpha = s.alpha;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        requestAnimationFrame(renderStars);
+      }
+      renderStars();
+    }
 
-            <div class="letter-content">
-              <p>
-                Jokes and roasts aside, I just wanted to make this little surprise website to remind you how much your friendship genuinely means to me.
-              </p>
-              <p>
-                In a world full of fake vibes and drama, you are one of the most real, dependable, and hilarious friends anyone could ever ask for. Thank you for the laughs, the random gossip sessions, the reality checks, and for never being boring.
-              </p>
-              <p>
-                Never change your crazy, wonderful, dramatic self. Always rooting for you in everything you do! 🚀⭐
-              </p>
-            </div>
+    function fireConfetti() {
+      const c = document.getElementById('confetti-canvas');
+      if (!c || !c.getContext) return;
+      const ctx = c.getContext('2d');
+      const cw = (c.width = window.innerWidth);
+      const ch = (c.height = window.innerHeight);
 
-            <div class="signature-box">
-              <span class="sig-title">Your Best Friend,</span>
-              <span class="sig-name">Harsh Verma</span>
-            </div>
+      const colors = ['#fbbf24', '#f59e0b', '#818cf8', '#34d399', '#f43f5e', '#a855f7'];
+      const pieces = Array.from({ length: 80 }, () => ({
+        x: cw / 2 + (Math.random() - 0.5) * 80,
+        y: ch / 2 - 40,
+        vx: (Math.random() - 0.5) * 14,
+        vy: (Math.random() - 1) * 15 - 4,
+        size: Math.random() * 8 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        tilt: Math.random() * 10,
+        life: 1
+      }));
 
-            <div class="accomplished-banner">
-              <p class="accomplished-title">MISSION ACCOMPLISHED! 🎉</p>
-              <p class="accomplished-sub">Now you can't say I never did anything for you. 😂</p>
-            </div>
-
-            <div style="text-align: center; margin-top: 24px;">
-              <button id="btn-replay" class="btn-secondary" type="button">
-                <span>Replay Surprise</span>
-                <span>🔄</span>
-              </button>
-            </div>
-          </article>
-        </div>
-      </section>
-    </main>
-
-    <!-- Relative Path to JavaScript Module -->
-    <script type="module" src="./script.js"></script>
-  </body>
+      let frame = 0;
+      function anim() {
+        frame++;
+        ctx.clearRect(0, 0, cw, ch);
+        let alive = false;
+        pieces.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.35;
+          p.life -= 0.012;
+          if (p.life > 0) {
+            alive = true;
+            ctx.globalAlpha = Math.max(0, p.life);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(p.x, p.y, p.size, p.size * 0.6);
+          }
+        });
+        if (alive && frame < 120) {
+          requestAnimationFrame(anim);
+        } else {
+          ctx.clearRect(0, 0, cw, ch);
+        }
+      }
+      anim();
+    }
+  </script>
+</body>
 </html>
