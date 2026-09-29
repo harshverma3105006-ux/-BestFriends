@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BestFriends - Disha Verma Surprise</title>
+    <meta name="description" content="A fun, friendly, and wholesome surprise website for Disha Verma." />
+    <meta property="og:title" content="BestFriends - Disha Verma Surprise" />
+    <meta property="og:description" content="A fun, friendly, and wholesome surprise website for Disha Verma." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Pure Relative Path to Stylesheet (Zero absolute slashes) -->
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- Ambient Aurora Gradient Blurs -->
+    <div class="aurora-layer" aria-hidden="true">
+      <div class="aurora-blob aurora-1"></div>
+      <div class="aurora-blob aurora-2"></div>
+      <div class="aurora-blob aurora-3"></div>
+    </div>
+
+    <!-- Background Canvas for Interactive Floating Stars & Particles -->
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <!-- Confetti Explosion Canvas -->
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+    <!-- Background Audio Element (Relative path to ./music.mp3, never autoplays) -->
+    <audio id="bg-music" preload="none" src="./music.mp3"></audio>
+
+    <!-- Header Navigation & Ambient Music Toggle -->
+    <header class="app-header">
+      <div class="brand-tag">
+        <span class="brand-dot"></span>
+        <span>Disha &amp; Harsh · Friendship Edition</span>
+      </div>
+
+      <button id="music-toggle" class="music-toggle" type="button" title="Toggle Chill Background Music">
+        <div class="music-bars" aria-hidden="true">
+          <span class="music-bar"></span>
+          <span class="music-bar"></span>
+          <span class="music-bar"></span>
+        </div>
+        <span id="music-label">Music: Off</span>
+      </button>
+    </header>
+
+    <!-- Bottom Progress Dots -->
+    <nav class="step-tracker" aria-label="Surprise progress">
+      <span class="step-pip active" title="Step 1"></span>
+      <span class="step-pip" title="Step 2"></span>
+      <span class="step-pip" title="Step 3"></span>
+      <span class="step-pip" title="Step 4"></span>
+      <span class="step-pip" title="Step 5"></span>
+    </nav>
+
+    <!-- Main Screens Container -->
+    <main class="main-wrapper">
+      <!-- ==========================================
+           SCREEN 1: MYSTERY INTRO
+           ========================================== -->
+      <section id="screen-1" class="screen active" aria-labelledby="screen-1-heading">
+        <div class="glass-panel">
+          <div class="mystery-orb" aria-hidden="true">👀</div>
+          <span class="hero-tag">Classified Friendship Dispatch</span>
+          <h1 id="screen-1-heading" class="main-title">Hey Disha Verma 👀</h1>
+          <p class="sub-title">Don't ask questions... just click the button 😂</p>
+
+          <div>
+            <button id="btn-screen-1-next" class="btn-primary" type="button">
+              <span>Open The Surprise</span>
+              <span>✨</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SCREEN 2: FUNNY WARNING NOTICE
+           ========================================== -->
+      <section id="screen-2" class="screen" aria-labelledby="screen-2-heading">
+        <div class="glass-panel">
+          <span class="hero-tag">Legal Disclaimer · Zero Refunds</span>
+          <h2 id="screen-2-heading" class="main-title">⚠️ IMPORTANT NOTICE ⚠️</h2>
+
+          <div class="notice-card">
+            <div class="notice-line">
+              You have entered a highly unnecessary website.
+            </div>
+            <div class="notice-line">
+              Was it necessary to make this?
+            </div>
+            <div class="notice-line accent">
+              No.
+            </div>
+            <div class="notice-line">
+              Did I make it anyway?
+            </div>
+            <div class="notice-line accent">
+              Absolutely. 😂
+            </div>
+            <div class="notice-line punchline">
+              Because you're my friend.
+            </div>
+          </div>
+
+          <div>
+            <button id="btn-screen-2-next" class="btn-primary" type="button">
+              <span>Okay... Continue</span>
+              <span>👀</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SCREEN 3: FRIENDSHIP CARDS
+           ========================================== -->
+      <section id="screen-3" class="screen" aria-labelledby="screen-3-heading">
+        <div class="glass-panel">
+          <span class="hero-tag">Exhibit A through D</span>
+          <h2 id="screen-3-heading" class="main-title">Friendship Files 📁</h2>
+          <p class="sub-title">Tap on each card to unlock the verified friendship archives</p>
+
+          <div class="cards-grid">
+            <!-- Card 1 -->
+            <article class="f-card" data-card="1" tabindex="0" role="button" aria-expanded="false">
+              <div class="f-card-header">
+                <h3 class="f-card-title">Random Conversations 😂</h3>
+                <span class="f-card-indicator">Tap to read</span>
+              </div>
+              <p class="f-card-body">
+                Some conversations make absolutely no sense... and somehow those are the funniest ones.
+              </p>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="f-card" data-card="2" tabindex="0" role="button" aria-expanded="false">
+              <div class="f-card-header">
+                <h3 class="f-card-title">Good Friend Energy ✨</h3>
+                <span class="f-card-indicator">Tap to read</span>
+              </div>
+              <p class="f-card-body">
+                Some people make normal days a little more fun. You're one of those people.
+              </p>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="f-card" data-card="3" tabindex="0" role="button" aria-expanded="false">
+              <div class="f-card-header">
+                <h3 class="f-card-title">Certified Chaos 😂</h3>
+                <span class="f-card-indicator">Tap to read</span>
+              </div>
+              <p class="f-card-body">
+                Every friendship needs at least one person responsible for unnecessary chaos.
+              </p>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="f-card" data-card="4" tabindex="0" role="button" aria-expanded="false">
+              <div class="f-card-header">
+                <h3 class="f-card-title">Secret Message 🔐</h3>
+                <span class="f-card-indicator">Tap to read</span>
+              </div>
+              <p class="f-card-body">
+                Okay, this website is getting unnecessarily wholesome now.
+              </p>
+            </article>
+          </div>
+
+          <p id="cards-counter-text" class="cards-counter">Cards Explored: 0 / 4</p>
+
+          <div>
+            <button id="btn-to-quiz" class="btn-secondary" type="button">
+              <span>Next: Friendship Quiz</span>
+              <span>📝</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SCREEN 4: MINI FRIENDSHIP QUIZ
+           ========================================== -->
+      <section id="screen-4" class="screen" aria-labelledby="screen-4-heading">
+        <div class="glass-panel">
+          <div id="quiz-active-section" class="quiz-box">
+            <span class="hero-tag">A Highly Scientific Assessment</span>
+            <p id="quiz-progress" class="quiz-progress-text">QUESTION 1 OF 3</p>
+            <h2 id="quiz-question" class="quiz-question-title">
+              Loading question...
+            </h2>
+
+            <div id="quiz-options" class="quiz-options">
+              <!-- Rendered dynamically by script.js -->
+            </div>
+
+            <p id="quiz-reaction" class="quiz-reaction-badge" aria-live="polite"></p>
+          </div>
+
+          <!-- Quiz Conclusion Card (Hidden until finished) -->
+          <div id="quiz-result-section" class="quiz-result-card">
+            <div class="quiz-trophy" aria-hidden="true">🏆</div>
+            <p class="conclusion-label">Scientific Conclusion:</p>
+            <h2 class="conclusion-text">You're officially a certified awesome friend. 🏆😂</h2>
+            <div>
+              <button id="btn-to-gift" class="btn-primary" type="button">
+                <span>Proceed To The Grand Finale</span>
+                <span>🎁</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           SCREEN 5: GIFT REVEAL & FINAL MESSAGE
+           ========================================== -->
+      <section id="screen-5" class="screen" aria-labelledby="screen-5-heading">
+        <div class="glass-panel">
+          <!-- Step 5A: Closed Gift -->
+          <div id="gift-intro-section">
+            <span class="hero-tag">The Final Chapter</span>
+            <h2 id="screen-5-heading" class="main-title">Okay Disha...</h2>
+            <p class="sub-title">There's actually one more thing.</p>
+
+            <!-- 3D Gift Box -->
+            <div class="gift-stage">
+              <div id="gift-box" class="gift-box" role="button" tabindex="0" title="Click to open the gift!">
+                <div class="gift-lid">
+                  <div class="gift-bow"></div>
+                </div>
+                <div class="gift-body">
+                  <div class="ribbon-v"></div>
+                  <div class="ribbon-h"></div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <button id="btn-open-gift" class="btn-primary" type="button">
+                <span>Open It</span>
+                <span>🎁</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 5B: Opened Gift & Heartfelt Wholesome Letter -->
+          <article id="final-letter-section" class="final-letter" aria-label="Friendship Letter">
+            <h3 class="letter-salutation">
+              <span>Disha Verma</span>
+              <span>🌸</span>
+            </h3>
+
+            <div class="letter-content">
+This whole website was completely unnecessary...
+
+but I made it anyway. 😂
+
+Just wanted to remind you that you're genuinely a great friend.
+
+Thanks for the random conversations,
+the laughs,
+the chaos,
+and all the little moments that make friendship fun.
+
+I hope this tiny surprise made you smile. ✨
+
+Stay happy.
+Stay awesome.
+And keep being you. 😎
+            </div>
+
+            <p class="letter-closing">— Your Friend</p>
+
+            <div class="accomplished-banner">
+              <p class="accomplished-title">MISSION ACCOMPLISHED! 🎉</p>
+              <p class="accomplished-sub">Now you can't say I never did anything for you. 😂</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 24px;">
+              <button id="btn-replay" class="btn-secondary" type="button">
+                <span>Replay Surprise</span>
+                <span>🔄</span>
+              </button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- Pure Relative Path to JavaScript File (Zero absolute slashes) -->
+    <script src="./script.js"></script>
+  </body>
+</html>

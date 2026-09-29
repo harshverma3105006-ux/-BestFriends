@@ -1,0 +1,6 @@
+{
+  "name": "BestFriends - Disha Verma Surprise",
+  "description": "A fun, friendly, and wholesome surprise website for Disha Verma.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
