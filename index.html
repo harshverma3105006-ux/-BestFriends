@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>Something I Made For Disha 👀</title>
   <meta name="description" content="A secret digital surprise created especially for Disha Verma. Completely unnecessary, but 100% worth it.">
   <meta property="og:title" content="Something I Made For Disha 👀">
@@ -32,11 +32,14 @@
       background-color: var(--bg);
       color: var(--text);
       min-height: 100vh;
+      min-height: 100dvh;
       overflow-x: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
+      touch-action: manipulation;
+      -webkit-font-smoothing: antialiased;
     }
     #star-canvas, #confetti-canvas {
       position: fixed;
@@ -63,14 +66,15 @@
       top: 0;
       width: 100%;
       max-width: 680px;
-      padding: 16px 20px;
+      padding: 12px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       z-index: 10;
-      background: rgba(7, 11, 20, 0.6);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(7, 11, 20, 0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
     .brand-badge {
       font-size: 0.8rem;
@@ -95,7 +99,7 @@
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--card-border);
       color: var(--text);
-      padding: 6px 14px;
+      padding: 7px 14px;
       border-radius: 999px;
       font-size: 0.82rem;
       font-weight: 600;
@@ -104,6 +108,7 @@
       align-items: center;
       gap: 8px;
       transition: all 0.25s ease;
+      -webkit-tap-highlight-color: transparent;
     }
     .btn-music:hover { background: rgba(255, 255, 255, 0.15); }
     .btn-music.active { border-color: var(--accent-gold); color: var(--accent-gold); box-shadow: 0 0 15px rgba(251, 191, 36, 0.25); }
@@ -129,7 +134,7 @@
     .main-container {
       width: 100%;
       max-width: 620px;
-      padding: 24px 20px 80px;
+      padding: 16px 14px 60px;
       z-index: 5;
       display: flex;
       flex-direction: column;
@@ -152,14 +157,11 @@
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 36px 28px;
+      border-radius: 22px;
+      padding: clamp(22px, 5vw, 36px) clamp(16px, 4vw, 28px);
       box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--card-border);
       text-align: center;
       position: relative;
-    }
-    @media (max-width: 480px) {
-      .glass-card { padding: 28px 18px; }
     }
 
     .tag-badge {
@@ -173,7 +175,7 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--accent-gold);
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .tag-badge.rose {
       background: rgba(244, 63, 94, 0.12);
@@ -192,12 +194,9 @@
       line-height: 1.2;
       margin-bottom: 12px;
     }
-    h1 { font-size: 2.3rem; }
-    h2 { font-size: 1.85rem; }
-    @media (max-width: 480px) {
-      h1 { font-size: 1.95rem; }
-      h2 { font-size: 1.6rem; }
-    }
+    h1 { font-size: clamp(1.85rem, 6vw, 2.3rem); }
+    h2 { font-size: clamp(1.45rem, 5vw, 1.85rem); }
+    
     .gold-text {
       background: linear-gradient(135deg, #fef08a 0%, #fbbf24 60%, #f59e0b 100%);
       -webkit-background-clip: text;
@@ -205,10 +204,14 @@
     }
 
     p.subtitle {
-      font-size: 1.05rem;
+      font-size: clamp(0.95rem, 3.5vw, 1.05rem);
       color: var(--text-muted);
       line-height: 1.6;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
+    }
+
+    .btn-main, .btn-sec, .btn-whatsapp, .quiz-btn, .f-card, .btn-react {
+      -webkit-tap-highlight-color: transparent;
     }
 
     .btn-main {
@@ -217,9 +220,10 @@
       justify-content: center;
       gap: 10px;
       width: 100%;
-      padding: 16px 28px;
+      min-height: 52px;
+      padding: 15px 24px;
       font-family: 'Outfit', sans-serif;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: #070b14;
       background: linear-gradient(135deg, #fde047 0%, #fbbf24 50%, #f59e0b 100%);
@@ -240,7 +244,8 @@
       border: 1px solid var(--card-border);
       color: var(--text);
       font-weight: 600;
-      padding: 14px 22px;
+      min-height: 48px;
+      padding: 13px 20px;
       border-radius: 14px;
       cursor: pointer;
       font-size: 0.95rem;
@@ -271,8 +276,8 @@
       gap: 14px;
       margin-bottom: 24px;
     }
-    @media (max-width: 480px) {
-      .cards-grid { grid-template-columns: 1fr; }
+    @media (max-width: 520px) {
+      .cards-grid { grid-template-columns: 1fr; gap: 12px; }
     }
     .f-card {
       background: rgba(255, 255, 255, 0.04);
@@ -472,7 +477,7 @@
     .action-links {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
       margin-top: 24px;
       width: 100%;
     }
@@ -724,6 +729,9 @@
           </div>
 
           <div class="action-links">
+            <button id="btn-insta" class="btn-sec" style="background: linear-gradient(135deg, rgba(225, 48, 108, 0.25), rgba(131, 58, 180, 0.3)); border-color: rgba(225, 48, 108, 0.5); color: #f472b6; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px;" type="button">
+              <span>Instagram DM ke liye Link Copy Karo 📸</span>
+            </button>
             <button id="btn-wa" class="btn-whatsapp" type="button">
               <span>WhatsApp Par Bhejo 💬</span>
             </button>
@@ -884,6 +892,44 @@
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+    });
+
+    // Instagram Copy Button with Robust Fallback
+    function updateInstaBtnText() {
+      const btn = document.getElementById('btn-insta');
+      if (btn) {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<span>✅ Link Copied! Insta DM me paste kardo 🎉</span>';
+        setTimeout(() => { btn.innerHTML = originalText; }, 2800);
+      }
+    }
+
+    function fallbackCopyText(text) {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        updateInstaBtnText();
+      } catch (err) {}
+      document.body.removeChild(textArea);
+    }
+
+    document.getElementById('btn-insta')?.addEventListener('click', () => {
+      const shareUrl = window.location.href;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          updateInstaBtnText();
+        }).catch(() => {
+          fallbackCopyText(shareUrl);
+        });
+      } else {
+        fallbackCopyText(shareUrl);
+      }
     });
 
     function getAudioContext() {
